@@ -1,5 +1,6 @@
 import { createUser, updateUsername } from "../src/functions-without-context";
 import { prismaMock } from "../singleton";
+import { User } from "@prisma/client";
 
 test("should create new user ", async () => {
   const user = {
@@ -26,7 +27,7 @@ test("should update a users name ", async () => {
     email: "hello@prisma.io",
   };
 
-  prismaMock.user.update.mockResolvedValue(user);
+  prismaMock.user.update.mockResolvedValue(user as User);
 
   await expect(updateUsername(user)).resolves.toEqual({
     id: 1,
