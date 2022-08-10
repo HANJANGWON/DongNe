@@ -4,8 +4,8 @@ DongNe Backend.
 
 ## User:
 
-- [ ] Create Account
-- [ ] See Profile
+- [v] Create Account
+- [v] See Profile
 - [ ] Login
 - [ ] Edit Profile
 - [ ] Follow User
