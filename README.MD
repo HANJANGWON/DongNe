@@ -6,7 +6,7 @@ DongNe Backend.
 
 - [v] Create Account
 - [v] See Profile
-- [ ] Login
+- [v] Login
 - [ ] Edit Profile
 - [ ] Follow User
 - [ ] Unfollow User
