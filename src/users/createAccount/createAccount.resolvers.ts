@@ -1,11 +1,12 @@
 import bycrypt from "bcrypt";
-import prisma from "../../../client";
+import { Resolvers } from "src/types";
 
-export default {
+const resolvers: Resolvers = {
   Mutation: {
     createAccount: async (
       _,
-      { firstName, lastName, username, email, password }
+      { firstName, lastName, username, email, password },
+      { prisma }
     ) => {
       try {
         const existingUser = await prisma.user.findFirst({
@@ -39,3 +40,5 @@ export default {
     },
   },
 };
+
+export default resolvers;

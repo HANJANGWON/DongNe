@@ -1,10 +1,10 @@
 import bycrypt from "bcrypt";
-import prisma from "../../../client";
 import jwt from "jsonwebtoken";
+import { Resolvers } from "src/types";
 
-export default {
+const resolvers: Resolvers = {
   Mutation: {
-    login: async (_, { username, password }) => {
+    login: async (_, { username, password }, { prisma }) => {
       // find user with args.username
       const user = await prisma.user.findFirst({ where: { username } });
       if (!user) {
@@ -23,7 +23,10 @@ export default {
       }
 
       // issue a token and send it to user
-      const token = await jwt.sign({ id: user.id }, process.env.SECRET_KEY);
+      const token = await jwt.sign(
+        { id: user.id },
+        process.env.SECRET_KEY as string
+      );
       return {
         ok: true,
         token,
@@ -31,3 +34,5 @@ export default {
     },
   },
 };
+
+export default resolvers;
