@@ -11,6 +11,7 @@ DongNe Backend.
 - [x] Change Avatar (Image Upload)
 - [x] Follow User
 - [x] Unfollow User
-- [ ] See Followers and See Following w/ Pagination
+- [x] See Followers w/ Pagination
+- [ ] See Following w/ Pagination
 - [ ] Computed Fields
-- [ ]
+- [ ] Search Users
