@@ -8,6 +8,8 @@ DongNe Backend.
 - [v] See Profile
 - [v] Login
 - [v] Edit Profile
-- [ ] Follow User
-- [ ] Unfollow User
+- [v] Follow User
+- [v] Unfollow User
+- [ ] See Followers
+- [ ] See Following
 - [ ] Change Avatar (Inage Upload)
