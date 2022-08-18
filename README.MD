@@ -4,12 +4,13 @@ DongNe Backend.
 
 ## User:
 
-- [v] Create Account
-- [v] See Profile
-- [v] Login
-- [v] Edit Profile
-- [v] Follow User
-- [v] Unfollow User
-- [ ] See Followers
-- [ ] See Following
-- [ ] Change Avatar (Inage Upload)
+- [x] Create Account
+- [x] See Profile
+- [x] Login
+- [x] Edit Profile
+- [x] Change Avatar (Image Upload)
+- [x] Follow User
+- [x] Unfollow User
+- [ ] See Followers and See Following w/ Pagination
+- [ ] Computed Fields
+- [ ]
