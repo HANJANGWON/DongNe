@@ -14,4 +14,4 @@ DongNe Backend.
 - [x] See Followers w/ Pagination
 - [x] See Following w/ Pagination
 - [x] Computed Fields
-- [ ] Search Users
+- [x] Search Users
