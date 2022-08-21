@@ -3,7 +3,7 @@ import { protectResolver } from "../users.utils";
 
 const resolvers: Resolvers = {
   Query: {
-    seeProfile: protectResolver((_, { username }, { prisma }) =>
+    seeProfile: (_, { username }, { prisma }) =>
       prisma.user.findUnique({
         where: {
           username,
@@ -12,8 +12,7 @@ const resolvers: Resolvers = {
           following: true,
           followers: true,
         },
-      })
-    ),
+      }),
   },
 };
 

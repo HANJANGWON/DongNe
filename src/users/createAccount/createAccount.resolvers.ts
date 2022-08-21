@@ -24,6 +24,7 @@ const resolvers: Resolvers = {
         if (existingUser) {
           throw new Error("This username or password is already taken.");
         }
+
         const uglyPassword = await bycrypt.hash(password, 10);
         await prisma.user.create({
           data: {

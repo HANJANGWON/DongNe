@@ -1,37 +1,33 @@
-import { Context } from "src/types";
-import * as createAccountResolver from "../../users/createAccount/createAccount.resolvers";
-import { MockContext, createMockContext } from "../../context";
+import { ApolloServer } from "apollo-server-express";
+import schema from "../../schema";
+import prisma from "../../client";
 
-const {
-  default: {
-    Mutation: { createAccount },
+const testServer = new ApolloServer({
+  schema,
+  context: async () => {
+    return {
+      prisma,
+    };
   },
-} = createAccountResolver;
-
-let mockCtx: MockContext;
-let ctx: Context;
-
-beforeEach(() => {
-  mockCtx = createMockContext();
-  ctx = mockCtx as unknown as Context;
 });
 
-test("should create new user ", async () => {
-  const user = {
-    id: 1,
-    username: "test",
-    email: "test@gmail.com",
-    firstName: "te",
-    lastName: "st",
-    password: "123",
-    bio: "test",
-    avatar: "test",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  };
-  mockCtx.prisma.user.create.mockResolvedValue(user);
+it("create user", async () => {
+  const result = await testServer.executeOperation({
+    query: `
+    mutation($firstName: String!, $username: String!, $email: String!, $password: String!) {
+      createAccount(firstName: $firstName, username: $username, email: $email, password: $password) {
+        ok
+      }
+    }`,
+    variables: {
+      firstName: "te2",
+      username: "test",
+      email: "test2@test.com",
+      password: "123",
+    },
+  });
 
-  await expect(createAccount(null, user, ctx, null)).resolves.toEqual({
+  expect(result.data?.createAccount).toEqual({
     ok: true,
   });
 });
