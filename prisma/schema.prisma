@@ -19,6 +19,7 @@ model User {
   password  String
   bio       String?
   avatar    String?
+  isManager Boolean
   followers User[]   @relation("FollowRelation")
   following User[]   @relation("FollowRelation")
   createdAt DateTime @default(now())
