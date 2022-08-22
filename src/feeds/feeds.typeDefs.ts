@@ -2,17 +2,17 @@ import { gql } from "apollo-server-express";
 
 export default gql`
   type Feed {
-    id: String!
+    id: Int!
     user: User!
     file: String!
     caption: String!
-    dongtag: [Dongtag]
+    dongtags: [Dongtag]
     createdAt: String!
     updatedAt: String!
   }
 
   type Dongtag {
-    id: String!
+    id: Int!
     dongtag: String!
     feeds: [Feed]
     createdAt: String!
