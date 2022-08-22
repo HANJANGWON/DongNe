@@ -44,6 +44,8 @@ const resolvers: Resolvers = {
       });
       return Boolean(exists);
     },
+    feeds: ({ id }, _, { prisma }) =>
+      prisma.user.findUnique({ where: { id } }).feeds(),
   },
 };
 

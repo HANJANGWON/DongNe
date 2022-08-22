@@ -24,8 +24,8 @@ const resolvers: Resolvers = {
           },
         })
         .feeds({
-          take: 2,
-          skip: (page - 1) * 2,
+          take: 5,
+          skip: (page - 1) * 5,
         });
     },
     totalFeeds: ({ id }, _, { prisma }) =>
