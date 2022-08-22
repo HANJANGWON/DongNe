@@ -28,11 +28,21 @@ model User {
 }
 
 model Feed {
-  id        Int      @id @default(autoincrement())
-  user      User     @relation(fields: [userId], references: [id])
+  id        Int       @id @default(autoincrement())
+  user      User      @relation(fields: [userId], references: [id])
   userId    Int
   file      String
   caption   String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  dongtags  Dongtag[]
+  dongtagId Int?
+}
+
+model Dongtag {
+  id        Int      @id @default(autoincrement())
+  dongtag   String   @unique
+  feeds     Feed[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
