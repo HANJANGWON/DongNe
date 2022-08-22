@@ -11,6 +11,22 @@ const testServer = new ApolloServer({
   },
 });
 
+const user = {
+  id: 1,
+  firstName: "te",
+  lastName: "st",
+  username: "tes",
+  email: "test@test.com",
+  password: "123",
+  bio: "test",
+  avatar: "test",
+  isManager: false,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+};
+
+beforeEach(() => {});
+
 it("create user", async () => {
   const result = await testServer.executeOperation({
     query: `
@@ -23,7 +39,7 @@ it("create user", async () => {
       firstName: "te2",
       username: "test",
       email: "test2@test.com",
-      password: "123",
+      password: "1234",
     },
   });
 

@@ -21,3 +21,11 @@ DongNe는 같은 아파트에 거주하는 주민 사이의 소식을 공유함�
 - [x] See Following w/ Pagination
 - [x] Computed Fields
 - [x] Search Users
+
+### 2. Feed:
+
+- [ ] Upload Feed
+- [ ] See Feed
+- [ ] Search Feeds
+- [ ] Edit Feed
+- [ ] Like / UnLike Feed
