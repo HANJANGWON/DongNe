@@ -15,6 +15,30 @@ const resolvers: Resolvers = {
         },
       }),
   },
+  Dongtag: {
+    feeds: ({ id }, { page }, { prisma, loggedInUser }) => {
+      return prisma.dongtag
+        .findUnique({
+          where: {
+            id,
+          },
+        })
+        .feeds({
+          take: 2,
+          skip: (page - 1) * 2,
+        });
+    },
+    totalFeeds: ({ id }, _, { prisma }) =>
+      prisma.feed.count({
+        where: {
+          dongtags: {
+            some: {
+              id,
+            },
+          },
+        },
+      }),
+  },
 };
 
 export default resolvers;

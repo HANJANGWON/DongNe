@@ -14,7 +14,8 @@ export default gql`
   type Dongtag {
     id: Int!
     dongtag: String!
-    feeds: [Feed]
+    feeds(page: Int!): [Feed]
+    totalFeeds: Int!
     createdAt: String!
     updatedAt: String!
   }
