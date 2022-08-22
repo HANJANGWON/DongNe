@@ -1,11 +1,12 @@
 import bycrypt from "bcrypt";
 import { Resolvers } from "src/types";
+import { CreateAccountInput } from "./createAccount.dto";
 
 const resolvers: Resolvers = {
   Mutation: {
     createAccount: async (
       _,
-      { firstName, lastName, username, email, password },
+      { firstName, lastName, username, email, password }: CreateAccountInput,
       { prisma }
     ) => {
       try {
