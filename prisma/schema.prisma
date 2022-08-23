@@ -19,7 +19,7 @@ model User {
   password  String
   bio       String?
   avatar    String?
-  feeds     Feed[]
+  posts     Post[]
   isManager Boolean  @default(false)
   followers User[]   @relation("FollowRelation")
   following User[]   @relation("FollowRelation")
@@ -28,7 +28,7 @@ model User {
   updatedAt DateTime @updatedAt
 }
 
-model Feed {
+model Post {
   id        Int       @id @default(autoincrement())
   user      User      @relation(fields: [userId], references: [id])
   userId    Int
@@ -44,19 +44,19 @@ model Feed {
 model Dongtag {
   id        Int      @id @default(autoincrement())
   dongtag   String   @unique
-  feeds     Feed[]
+  posts     Post[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Like {
   id        Int      @id @default(autoincrement())
-  feed      Feed     @relation(fields: [feedId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id])
   user      User     @relation(fields: [userId], references: [id])
-  feedId    Int
+  postId    Int
   userId    Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@unique([feedId, userId])
+  @@unique([postId, userId])
 }

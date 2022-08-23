@@ -1,0 +1,46 @@
+import { Resolvers } from "src/types";
+
+const resolvers: Resolvers = {
+  Post: {
+    user: ({ userId }, _, { prisma }) =>
+      prisma.user.findUnique({ where: { id: userId } }),
+    dongtags: ({ id }, _, { prisma }) =>
+      prisma.dongtag.findMany({
+        where: {
+          posts: {
+            some: {
+              id,
+            },
+          },
+        },
+      }),
+    likes: ({ id }, _, { prisma }) =>
+      prisma.like.count({ where: { postId: id } }),
+  },
+  Dongtag: {
+    posts: ({ id }, { page }, { prisma, loggedInUser }) => {
+      return prisma.dongtag
+        .findUnique({
+          where: {
+            id,
+          },
+        })
+        .posts({
+          take: 5,
+          skip: (page - 1) * 5,
+        });
+    },
+    totalPosts: ({ id }, _, { prisma }) =>
+      prisma.post.count({
+        where: {
+          dongtags: {
+            some: {
+              id,
+            },
+          },
+        },
+      }),
+  },
+};
+
+export default resolvers;
