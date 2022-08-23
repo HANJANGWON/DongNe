@@ -23,6 +23,7 @@ model User {
   isManager Boolean  @default(false)
   followers User[]   @relation("FollowRelation")
   following User[]   @relation("FollowRelation")
+  likes     Like[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -33,10 +34,11 @@ model Feed {
   userId    Int
   file      String
   caption   String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
   dongtags  Dongtag[]
   dongtagId Int?
+  likes     Like[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 model Dongtag {
@@ -45,4 +47,16 @@ model Dongtag {
   feeds     Feed[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Like {
+  id        Int      @id @default(autoincrement())
+  feed      Feed     @relation(fields: [feedId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+  feedId    Int
+  userId    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([feedId, userId])
 }
