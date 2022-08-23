@@ -14,6 +14,8 @@ const resolvers: Resolvers = {
           },
         },
       }),
+    likes: ({ id }, _, { prisma }) =>
+      prisma.like.count({ where: { feedId: id } }),
   },
   Dongtag: {
     feeds: ({ id }, { page }, { prisma, loggedInUser }) => {

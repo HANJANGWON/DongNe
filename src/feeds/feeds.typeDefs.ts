@@ -7,6 +7,7 @@ export default gql`
     file: String!
     caption: String!
     dongtags: [Dongtag]
+    likes: Int!
     createdAt: String!
     updatedAt: String!
   }
