@@ -31,4 +31,4 @@ DongNe는 같은 아파트에 거주하는 주민 사이의 소식을 공유함�
 - [x] Edit Post
 - [x] Like / UnLike Post
 - [x] See Post Like
-- [ ] See Feed
+- [x] See Feed
