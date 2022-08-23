@@ -1,5 +1,6 @@
 import { Resolvers } from "src/types";
 import { protectResolver } from "../../users/users.utils";
+import { processDongtags } from "../feeds.utils";
 import { UploadFeedInput } from "./uploadFeed.dto";
 
 const resolvers: Resolvers = {
@@ -12,12 +13,7 @@ const resolvers: Resolvers = {
       ) => {
         let dongtagObj: any = [];
 
-        const dongtags = caption.match(/[\w]+동/g);
-        dongtagObj = dongtags?.map((dongtag) => ({
-          where: { dongtag },
-          create: { dongtag },
-        }));
-
+        dongtagObj = processDongtags(caption);
         return prisma.feed.create({
           data: {
             user: {
