@@ -31,12 +31,12 @@ DongNe는 같은 아파트에 거주하는 주민 사이의 소식을 공유함�
 - [x] Edit Post
 - [x] Like / UnLike Post
 - [x] See Post Like
-- [ ] See Post Comments
 - [x] See Feed
+- [ ] See Post Comments
 - [ ] Is Mine (Delete Post)
 
 ### 3. Comments
 
-- [ ] Comment on Post
+- [x] Comment on Post
 - [ ] Edit Comment
 - [ ] Is Mine(Delete Comment)
