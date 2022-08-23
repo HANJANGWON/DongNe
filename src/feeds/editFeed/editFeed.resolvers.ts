@@ -26,7 +26,7 @@ const resolvers: Resolvers = {
             error: "Feed not found.",
           };
         }
-        const feed = await prisma.feed.update({
+        await prisma.feed.update({
           where: {
             id,
           },
@@ -38,7 +38,9 @@ const resolvers: Resolvers = {
             },
           },
         });
-        console.log(feed);
+        return {
+          ok: true,
+        };
       }
     ),
   },
