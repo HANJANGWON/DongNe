@@ -29,4 +29,6 @@ DongNe는 같은 아파트에 거주하는 주민 사이의 소식을 공유함�
 - [x] See Dongtag
 - [x] Search Feeds
 - [x] Edit Feed
-- [ ] Like / UnLike Feed
+- [x] Like / UnLike Feed
+- [x] See Feed Like
+- [ ] See Feed
