@@ -1,5 +1,5 @@
 import { Resolvers } from "src/types";
-import { protectResolver } from "src/users/users.utils";
+import { protectResolver } from "../../users/users.utils";
 
 const resolvers: Resolvers = {
   Mutation: {
