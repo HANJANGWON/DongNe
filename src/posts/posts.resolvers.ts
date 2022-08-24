@@ -18,6 +18,12 @@ const resolvers: Resolvers = {
       prisma.like.count({ where: { postId: id } }),
     comments: ({ id }, _, { prisma }) =>
       prisma.comment.count({ where: { postId: id } }),
+    isMine: ({ userId }, _, { loggedInUser }) => {
+      if (!loggedInUser) {
+        return false;
+      }
+      return userId === loggedInUser.id;
+    },
   },
   Dongtag: {
     posts: ({ id }, { page }, { prisma, loggedInUser }) => {

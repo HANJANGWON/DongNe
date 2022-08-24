@@ -2,8 +2,8 @@ import { Resolvers } from "src/types";
 
 const resolvers: Resolvers = {
   Query: {
-    seePostComments: async (_, { id, lastId }, { prisma }) => {
-      const comments = await prisma.comment.findMany({
+    seePostComments: (_, { id, lastId }, { prisma }) => {
+      const comments = prisma.comment.findMany({
         where: {
           postId: id,
         },
