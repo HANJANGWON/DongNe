@@ -1,3 +1,4 @@
+import { uploadToS3 } from "../../shared/shared.utils";
 import { Resolvers } from "src/types";
 import { protectResolver } from "../../users/users.utils";
 import { processDongtags } from "../posts.utils";
@@ -14,15 +15,16 @@ const resolvers: Resolvers = {
         let dongtagObj: any = [];
 
         dongtagObj = processDongtags(caption);
+        const fileUrl = await uploadToS3(file, loggedInUser.id, "uploads");
         return prisma.post.create({
           data: {
+            file: fileUrl,
+            caption,
             user: {
               connect: {
                 id: loggedInUser.id,
               },
             },
-            file,
-            caption,
             ...(dongtagObj.length > 0 && {
               dongtags: {
                 connectOrCreate: dongtagObj,

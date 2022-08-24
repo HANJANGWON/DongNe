@@ -2,6 +2,6 @@ import { gql } from "apollo-server-express";
 
 export default gql`
   type Mutation {
-    uploadPost(file: String!, caption: String!): Post
+    uploadPost(file: Upload!, caption: String!): Post
   }
 `;
