@@ -43,5 +43,7 @@ DongNe는 같은 아파트에 거주하는 주민 사이의 소식을 공유함�
 
 ### 4. Chat
 
+- [x] See Rooms
+- [x] Send Message (Create Room)
 - [x] See Room
-- [ ] Send Message (Create Room)
+- [ ] See (Read) Message

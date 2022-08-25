@@ -3,9 +3,10 @@ import { protectResolver } from "../../users/users.utils";
 
 const resolvers: Resolvers = {
   Query: {
-    seeRooms: protectResolver(async (_, __, { loggedInUser, prisma }) =>
-      prisma.room.findMany({
+    seeRoom: protectResolver((_, { id }, { loggedInUser, prisma }) =>
+      prisma.room.findFirst({
         where: {
+          id,
           users: {
             some: {
               id: loggedInUser.id,
