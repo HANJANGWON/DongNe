@@ -6,9 +6,24 @@ import schema from "./schema";
 import { getUser } from "./users/users.utils";
 import graphqlUploadExpress from "graphql-upload/graphqlUploadExpress.js";
 import prisma from "./client";
+import pubsub from "./pubsub";
+import { createServer } from "http";
+import {
+  ApolloServerPluginDrainHttpServer,
+  ApolloServerPluginLandingPageLocalDefault,
+} from "apollo-server-core";
+import { makeExecutableSchema } from "@graphql-tools/schema";
+import { WebSocketServer } from "ws";
+import { useServer } from "graphql-ws/lib/use/ws";
 
 const PORT = process.env.PORT;
-
+const app = express();
+const httpServer = createServer(app);
+const wsServer = new WebSocketServer({
+  server: httpServer,
+  path: "/graphql",
+});
+const serverCleanup = useServer({ schema }, wsServer);
 const startServer = async () => {
   const server = new ApolloServer({
     schema,
@@ -18,14 +33,26 @@ const startServer = async () => {
         prisma,
       };
     },
+    plugins: [
+      ApolloServerPluginDrainHttpServer({ httpServer }),
+      {
+        async serverWillStart() {
+          return {
+            async drainServer() {
+              await serverCleanup.dispose();
+            },
+          };
+        },
+      },
+      ApolloServerPluginLandingPageLocalDefault({ embed: true }),
+    ],
   });
   await server.start();
-  const app = express();
   app.use(logger("tiny"));
   app.use("/static", express.static("src/uploads"));
   app.use(graphqlUploadExpress());
   server.applyMiddleware({ app });
-  await new Promise((func: any) => app.listen({ port: PORT }, func));
+  await new Promise((func: any) => httpServer.listen({ port: PORT }, func));
   console.log(`🚀 Server: http://localhost:${PORT}${server.graphqlPath}`);
 };
 

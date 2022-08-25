@@ -1,3 +1,5 @@
+import { NEW_MESSAGE } from "../../constants";
+import pubsub from "../../pubsub";
 import { Resolvers } from "src/types";
 import { protectResolver } from "../../users/users.utils";
 import { SendMessageInput } from "./sendMessage.dto";
@@ -56,7 +58,7 @@ const resolvers: Resolvers = {
             };
           }
         }
-        await prisma.message.create({
+        const message = await prisma.message.create({
           data: {
             payload,
             room: {
@@ -71,6 +73,7 @@ const resolvers: Resolvers = {
             },
           },
         });
+        pubsub.publish(NEW_MESSAGE, { roomUpdates: message });
         return {
           ok: true,
         };

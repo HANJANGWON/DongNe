@@ -27,6 +27,10 @@ const resolvers: Resolvers = {
       });
     },
   },
+  Message: {
+    user: ({ id }, _, { prisma }) =>
+      prisma.message.findUnique({ where: { id } }).user(),
+  },
 };
 
 export default resolvers;
