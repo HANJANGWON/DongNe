@@ -12,7 +12,6 @@ import {
   ApolloServerPluginDrainHttpServer,
   ApolloServerPluginLandingPageLocalDefault,
 } from "apollo-server-core";
-import { makeExecutableSchema } from "@graphql-tools/schema";
 import { WebSocketServer } from "ws";
 import { useServer } from "graphql-ws/lib/use/ws";
 
@@ -23,7 +22,7 @@ const wsServer = new WebSocketServer({
   server: httpServer,
   path: "/graphql",
 });
-const serverCleanup = useServer({ schema }, wsServer);
+
 const startServer = async () => {
   const server = new ApolloServer({
     schema,
@@ -47,10 +46,30 @@ const startServer = async () => {
       ApolloServerPluginLandingPageLocalDefault({ embed: true }),
     ],
   });
+
+  const serverCleanup = useServer(
+    {
+      schema,
+      context: async ({ connectionParams }) => {
+        if (connectionParams) {
+          if (!connectionParams.token) {
+            throw new Error("You cant listening");
+          }
+          const loggedInUser = await getUser(connectionParams.token);
+          return {
+            loggedInUser,
+          };
+        }
+      },
+    },
+    wsServer
+  );
+
   await server.start();
   app.use(logger("tiny"));
   app.use("/static", express.static("src/uploads"));
   app.use(graphqlUploadExpress());
+
   server.applyMiddleware({ app });
   await new Promise((func: any) => httpServer.listen({ port: PORT }, func));
   console.log(`🚀 Server: http://localhost:${PORT}${server.graphqlPath}`);

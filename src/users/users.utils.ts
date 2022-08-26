@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import { Resolver } from "src/types";
 import prisma from "../client";
+
 export const getUser = async (token) => {
   try {
     if (!token) {

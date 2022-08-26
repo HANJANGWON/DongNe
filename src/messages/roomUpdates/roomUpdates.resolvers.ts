@@ -7,9 +7,14 @@ const resolvers = {
   Subscription: {
     roomUpdates: {
       subscribe: async (parent, args, context, info) => {
-        const room = await prisma.room.findUnique({
+        const room = await prisma.room.findFirst({
           where: {
             id: args.id,
+            users: {
+              some: {
+                id: context.loggedInUser.id,
+              },
+            },
           },
           select: {
             id: true,
@@ -21,13 +26,30 @@ const resolvers = {
         }
         return withFilter(
           () => pubsub.asyncIterator(NEW_MESSAGE),
-          ({ roomUpdates }, { id }) => {
-            return roomUpdates.roomId === id;
+          async ({ roomUpdates }, { id }, { loggedInUser }): Promise<any> => {
+            if (roomUpdates.roomId === id) {
+              const room = await prisma.room.findFirst({
+                where: {
+                  id,
+                  users: {
+                    some: {
+                      id: loggedInUser.id,
+                    },
+                  },
+                },
+                select: {
+                  id: true,
+                },
+              });
+              if (!room) {
+                return false;
+              }
+              return true;
+            }
           }
         )(parent, args, context, info);
       },
     },
   },
 };
-
 export default resolvers;
