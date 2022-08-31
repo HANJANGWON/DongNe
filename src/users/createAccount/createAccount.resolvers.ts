@@ -6,7 +6,7 @@ const resolvers: Resolvers = {
   Mutation: {
     createAccount: async (
       _,
-      { username, email, password }: CreateAccountInput,
+      { username, fullName, email, password }: CreateAccountInput,
       { prisma }
     ) => {
       try {
@@ -30,6 +30,7 @@ const resolvers: Resolvers = {
         await prisma.user.create({
           data: {
             username,
+            fullName,
             email,
             password: uglyPassword,
           },
