@@ -7,7 +7,7 @@ import { uploadToS3 } from "../../shared/shared.utils";
 
 const resolverFn: Resolver = async (
   _,
-  { firstName, lastName, username, email, password: newPassword, bio, avatar },
+  { username, email, password: newPassword, bio, avatar },
   { loggedInUser, prisma }
 ) => {
   let avatarUrl: any = null;
@@ -31,8 +31,6 @@ const resolverFn: Resolver = async (
       id: loggedInUser.id,
     },
     data: {
-      firstName,
-      lastName,
       username,
       email,
       bio,

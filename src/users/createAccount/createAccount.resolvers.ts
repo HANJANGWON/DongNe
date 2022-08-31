@@ -6,7 +6,7 @@ const resolvers: Resolvers = {
   Mutation: {
     createAccount: async (
       _,
-      { firstName, lastName, username, email, password }: CreateAccountInput,
+      { username, email, password }: CreateAccountInput,
       { prisma }
     ) => {
       try {
@@ -31,8 +31,6 @@ const resolvers: Resolvers = {
           data: {
             username,
             email,
-            firstName,
-            lastName,
             password: uglyPassword,
           },
         });

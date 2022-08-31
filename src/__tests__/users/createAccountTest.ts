@@ -13,8 +13,6 @@ const testServer = new ApolloServer({
 
 const user = {
   id: 1,
-  firstName: "te",
-  lastName: "st",
   username: "tes",
   email: "test@test.com",
   password: "123",
@@ -30,13 +28,12 @@ beforeEach(() => {});
 it("create user", async () => {
   const result = await testServer.executeOperation({
     query: `
-    mutation($firstName: String!, $username: String!, $email: String!, $password: String!) {
-      createAccount(firstName: $firstName, username: $username, email: $email, password: $password) {
+    mutation($username: String!, $email: String!, $password: String!) {
+      createAccount( username: $username, email: $email, password: $password) {
         ok
       }
     }`,
     variables: {
-      firstName: "te2",
       username: "test",
       email: "test2@test.com",
       password: "1234",

@@ -10,7 +10,7 @@ const resolvers: Resolvers = {
       if (!user) {
         return {
           ok: false,
-          error: "user not found.",
+          error: "아이디 또는 비밀번호를 잘못 입력했습니다.",
         };
       }
       // check password with args.password
@@ -18,7 +18,7 @@ const resolvers: Resolvers = {
       if (!passwordOk) {
         return {
           ok: false,
-          error: "Incorrect password.",
+          error: "아이디 또는 비밀번호를 잘못 입력했습니다.",
         };
       }
 

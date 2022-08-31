@@ -53,7 +53,7 @@ const startServer = async () => {
       context: async ({ connectionParams }) => {
         if (connectionParams) {
           if (!connectionParams.token) {
-            throw new Error("You cant listening");
+            throw new Error("You can't listen.");
           }
           const loggedInUser = await getUser(connectionParams.token);
           return {
