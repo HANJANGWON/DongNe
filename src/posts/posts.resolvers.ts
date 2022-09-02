@@ -24,6 +24,26 @@ const resolvers: Resolvers = {
       }
       return userId === loggedInUser.id;
     },
+    isLiked: async ({ id }, _, { prisma, loggedInUser }) => {
+      if (!loggedInUser) {
+        return false;
+      }
+      const ok = await prisma.like.findUnique({
+        where: {
+          postId_userId: {
+            postId: id,
+            userId: loggedInUser.id,
+          },
+        },
+        select: {
+          id: true,
+        },
+      });
+      if (ok) {
+        return true;
+      }
+      return false;
+    },
   },
   Dongtag: {
     posts: ({ id }, { page }, { prisma, loggedInUser }) => {
