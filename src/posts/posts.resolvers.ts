@@ -16,8 +16,15 @@ const resolvers: Resolvers = {
       }),
     likes: ({ id }, _, { prisma }) =>
       prisma.like.count({ where: { postId: id } }),
-    comments: ({ id }, _, { prisma }) =>
+    commentsNumber: ({ id }, _, { prisma }) =>
       prisma.comment.count({ where: { postId: id } }),
+    comments: ({ id }, _, { prisma }) =>
+      prisma.comment.findMany({
+        where: { postId: id },
+        include: {
+          user: true,
+        },
+      }),
     isMine: ({ userId }, _, { loggedInUser }) => {
       if (!loggedInUser) {
         return false;

@@ -8,7 +8,8 @@ export default gql`
     caption: String!
     dongtags: [Dongtag]
     likes: Int!
-    comments: Int!
+    commentsNumber: Int!
+    comments: [Comment]
     createdAt: String!
     updatedAt: String!
     isMine: Boolean!
