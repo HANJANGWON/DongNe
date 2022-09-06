@@ -24,7 +24,7 @@ const resolvers: Resolvers = {
             error: "Post not found",
           };
         }
-        await prisma.comment.create({
+        const newComment = await prisma.comment.create({
           data: {
             payload,
             post: {
@@ -41,6 +41,7 @@ const resolvers: Resolvers = {
         });
         return {
           ok: true,
+          id: newComment.id,
         };
       }
     ),
