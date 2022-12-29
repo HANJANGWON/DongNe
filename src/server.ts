@@ -51,6 +51,7 @@ const startServer = async () => {
     {
       schema,
       context: async ({ connectionParams }) => {
+        console.log(connectionParams);
         if (connectionParams) {
           if (!connectionParams.token) {
             throw new Error("You can't listen.");

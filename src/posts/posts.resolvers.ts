@@ -24,6 +24,9 @@ const resolvers: Resolvers = {
         include: {
           user: true,
         },
+        orderBy: {
+          createdAt: "asc",
+        },
       }),
     isMine: ({ userId }, _, { loggedInUser }) => {
       if (!loggedInUser) {

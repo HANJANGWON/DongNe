@@ -1,16 +1,16 @@
-import { Resolvers } from "src/types";
+import { Resolver, Resolvers } from "src/types";
+import prisma from "../client";
 
 const resolvers: Resolvers = {
   Room: {
-    users: ({ id }, _, { prisma }) =>
-      prisma.room.findUnique({ where: { id } }).users(),
-    messages: ({ id }, _, { prisma }) =>
+    users: ({ id }) => prisma.room.findUnique({ where: { id } }).users(),
+    messages: ({ id }) =>
       prisma.message.findMany({
         where: {
           roomId: id,
         },
       }),
-    unreadTotal: ({ id }, __, { prisma, loggedInUser }) => {
+    unreadTotal: ({ id }, __, { loggedInUser }) => {
       if (!loggedInUser) {
         return 0;
       }
@@ -28,8 +28,7 @@ const resolvers: Resolvers = {
     },
   },
   Message: {
-    user: ({ id }, _, { prisma }) =>
-      prisma.message.findUnique({ where: { id } }).user(),
+    user: ({ id }) => prisma.message.findUnique({ where: { id } }).user(),
   },
 };
 

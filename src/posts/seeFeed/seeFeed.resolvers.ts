@@ -3,8 +3,10 @@ import { protectResolver } from "../../users/users.utils";
 
 const resolvers: Resolvers = {
   Query: {
-    seeFeed: protectResolver((_, __, { loggedInUser, prisma }) =>
+    seeFeed: protectResolver((_, { offset }, { loggedInUser, prisma }) =>
       prisma.post.findMany({
+        take: 2,
+        skip: offset,
         where: {
           OR: [
             {

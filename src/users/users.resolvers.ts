@@ -45,7 +45,11 @@ const resolvers: Resolvers = {
       return Boolean(exists);
     },
     posts: ({ id }, _, { prisma }) =>
-      prisma.user.findUnique({ where: { id } }).posts(),
+      prisma.user.findUnique({ where: { id } }).posts({
+        orderBy: {
+          createdAt: "desc",
+        },
+      }),
   },
 };
 
